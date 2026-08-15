@@ -26,6 +26,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      js-cookie:
+        specifier: ^3.0.8
+        version: 3.0.8
       lucide-react:
         specifier: ^1.30.0
         version: 1.30.0(react@19.2.8)
@@ -47,6 +50,9 @@ importers:
       react-joyride:
         specifier: ^3.2.0
         version: 3.2.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      react-toastify:
+        specifier: ^11.1.0
+        version: 11.1.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       shadcn:
         specifier: ^4.16.2
         version: 4.16.2(typescript@5.9.3)
@@ -69,6 +75,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.3.3
+      '@types/js-cookie':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@types/node':
         specifier: ^20
         version: 20.19.43
@@ -1000,6 +1009,9 @@ packages:
 
   '@types/estree@1.0.9':
     resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
+
+  '@types/js-cookie@3.0.6':
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -2285,6 +2297,9 @@ packages:
   jose@6.2.8:
     resolution: {integrity: sha512-Bsdjwm3Qsd/P0jR+BHDe3LytDfY7WBq2HmCCLIwuVRHMuEC9ae7/R474GIUdF1NgCyZjzVo/A9DOiOBtXq8ZoQ==}
 
+  js-cookie@3.0.8:
+    resolution: {integrity: sha512-yeJd4aNAdYZQjaon2bpD/Gb0B/omw7HQOsynXXcOiWVCacbBcPlgn8S/d1X6blFSaHao7ozqtW7NZW19xpCtIw==}
+
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -2834,6 +2849,12 @@ packages:
     peerDependencies:
       react: 16.8 - 19
       react-dom: 16.8 - 19
+
+  react-toastify@11.1.0:
+    resolution: {integrity: sha512-e9h23x3phN0wbFeB6yovmWp7lobzV4CaCH0LO8nVP6H7Y+3GbcLpIzMm9dJhcp1RXbpyfvjgpfXqO80QAmn7sg==}
+    peerDependencies:
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
 
   react@19.2.8:
     resolution: {integrity: sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==}
@@ -4130,6 +4151,8 @@ snapshots:
     optional: true
 
   '@types/estree@1.0.9': {}
+
+  '@types/js-cookie@3.0.6': {}
 
   '@types/json-schema@7.0.15': {}
 
@@ -5566,6 +5589,8 @@ snapshots:
 
   jose@6.2.8: {}
 
+  js-cookie@3.0.8: {}
+
   js-tokens@4.0.0: {}
 
   js-yaml@4.3.1:
@@ -6085,6 +6110,12 @@ snapshots:
       use-sync-external-store: 1.6.0(react@19.2.8)
     transitivePeerDependencies:
       - '@types/react'
+
+  react-toastify@11.1.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+    dependencies:
+      clsx: 2.1.1
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
 
   react@19.2.8: {}
 
