@@ -5,7 +5,8 @@ const protectedRoutes = ["/dashboard"];
 const authRoutes = ["/login", "/register"];
 
 export function middleware(req: NextRequest) {
-  const token = req.cookies.get("refreshToken")?.value; 
+  // const token = req.cookies.get("refreshToken")?.value; 
+  const token = req.cookies.get("isLoggedIn")?.value;
   const path = req.nextUrl.pathname;
 
   const isProtected = protectedRoutes.some((r) => path.startsWith(r));
