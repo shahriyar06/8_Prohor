@@ -1,0 +1,50 @@
+{
+  "sidebar": {
+    "groups": {
+      "main": "প্রধান",
+      "finance": "আর্থিক",
+      "admin": "প্রশাসন",
+      "settings": "সেটিংস"
+    },
+    "items": {
+      "dashboard": "ড্যাশবোর্ড",
+      "task": "কাজ",
+      "stopwatch": "স্টপওয়াচ",
+      "incomeCategory": "আয়ের ক্যাটাগরি",
+      "income": "আয়",
+      "expenseCategory": "খরচের ক্যাটাগরি",
+      "expense": "খরচ",
+      "liability": "দেনা",
+      "receivable": "পাওনা",
+      "reports": "রিপোর্ট",
+      "reportsWeekly": "সাপ্তাহিক",
+      "reportsMonthly": "মাসিক",
+      "reportsYearly": "বার্ষিক",
+      "permissions": "অনুমতি",
+      "userManagement": "ইউজার ম্যানেজমেন্ট",
+      "settings": "সেটিংস",
+      "profile": "প্রোফাইল",
+      "account": "অ্যাকাউন্ট",
+      "appearance": "চেহারা"
+    }
+  },
+  "settings": {
+    "appearance": {
+      "title": "চেহারা",
+      "description": "অ্যাপ্লিকেশন দেখতে কেমন হবে তা ঠিক করো। থিম হেডার থেকেও বদলানো যাবে।"
+    },
+    "theme": {
+      "title": "থিম",
+      "description": "লাইট বা ডার্ক মোড বেছে নাও, অথবা সিস্টেমকে ঠিক করতে দাও।",
+      "current": "বর্তমানে থিম সেট করা আছে",
+      "light": "লাইট",
+      "dark": "ডার্ক",
+      "system": "সিস্টেম"
+    },
+    "language": {
+      "title": "ভাষা",
+      "description": "ড্যাশবোর্ডের জন্য তোমার পছন্দের ভাষা বেছে নাও।",
+      "current": "বর্তমানে ভাষা সেট করা আছে"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "sidebar": {
+    "groups": {
+      "main": "Main",
+      "finance": "Finance",
+      "admin": "Admin",
+      "settings": "Settings"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "task": "Task",
+      "stopwatch": "Stopwatch",
+      "incomeCategory": "Income Category",
+      "income": "Income",
+      "expenseCategory": "Expense Category",
+      "expense": "Expense",
+      "liability": "Liability",
+      "receivable": "Receivable",
+      "reports": "Reports",
+      "reportsWeekly": "Weekly",
+      "reportsMonthly": "Monthly",
+      "reportsYearly": "Yearly",
+      "permissions": "Permissions",
+      "userManagement": "User Management",
+      "settings": "Settings",
+      "profile": "Profile",
+      "account": "Account",
+      "appearance": "Appearance"
+    }
+  },
+  "settings": {
+    "appearance": {
+      "title": "Appearance",
+      "description": "Customize how the application looks. Theme can also be changed from the header."
+    },
+    "theme": {
+      "title": "Theme",
+      "description": "Choose between light and dark mode, or let the system decide for you.",
+      "current": "Currently, the theme is set to",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Choose your preferred language for the dashboard.",
+      "current": "Currently, the language is set to"
+    }
+  }
+}
