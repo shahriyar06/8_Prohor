@@ -30,7 +30,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Route বদলালে mobile menu automatic বন্ধ হয়ে যাবে
   useEffect(() => {
     setOpen(false);
   }, [pathname]);

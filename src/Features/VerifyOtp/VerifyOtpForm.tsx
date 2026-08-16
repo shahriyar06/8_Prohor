@@ -11,6 +11,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import cookies from "js-cookie";
+import { useLanguageStore } from "@/store/languageStore";
 
 const RESEND_COOLDOWN_SECONDS = 60;
 
@@ -21,6 +22,7 @@ export default function VerifyOtpForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const [countdown, setCountdown] = useState(RESEND_COOLDOWN_SECONDS);
+  const setLocale = useLanguageStore((state) => state.setLocale);
 
   const {
     register,
@@ -31,7 +33,6 @@ export default function VerifyOtpForm() {
     defaultValues: { otp: "" },
   });
 
-  // প্রতি ১ সেকেন্ডে countdown কমতে থাকবে, ০ পর্যন্ত
   useEffect(() => {
     if (countdown <= 0) return;
 
@@ -39,7 +40,7 @@ export default function VerifyOtpForm() {
       setCountdown((prev) => prev - 1);
     }, 1000);
 
-    return () => clearInterval(timer); // component unmount হলে বা re-run হলে পুরনো timer পরিষ্কার করা
+    return () => clearInterval(timer);
   }, [countdown]);
 
   const onSubmit = async (data: VerifyOtpValues) => {
@@ -49,6 +50,7 @@ export default function VerifyOtpForm() {
       toast.success(result.message || "Email verified successfully");
       localStorage.setItem("accessToken", result.data.accessToken);
       cookies.set("isLoggedIn", "true", { expires: 7 });
+      setLocale(result.data.user.languagePref);
       router.push("/dashboard");
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
@@ -89,7 +91,9 @@ export default function VerifyOtpForm() {
           placeholder="6-digit code"
           {...register("otp")}
         />
-        {errors.otp && <p className="text-sm text-red-500">{errors.otp.message}</p>}
+        {errors.otp && (
+          <p className="text-sm text-red-500">{errors.otp.message}</p>
+        )}
       </div>
 
       <Button variant="default" type="submit" disabled={isSubmitting}>
@@ -105,8 +109,8 @@ export default function VerifyOtpForm() {
         {isResending
           ? "Resending..."
           : countdown > 0
-          ? `Resend OTP in ${countdown}s`
-          : "Resend OTP"}
+            ? `Resend OTP in ${countdown}s`
+            : "Resend OTP"}
       </Button>
     </form>
   );

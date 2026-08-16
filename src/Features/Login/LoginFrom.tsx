@@ -12,11 +12,13 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import Cookies from "js-cookie";
+import { useLanguageStore } from "@/store/languageStore";
 
 export default function LoginForm() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const setLocale = useLanguageStore((state) => state.setLocale);
 
   const {
     register,
@@ -33,7 +35,8 @@ export default function LoginForm() {
       const result = await authService.login(data);
       toast.success(result.message || "Logged in successfully");
       localStorage.setItem("accessToken", result.data.accessToken);
-      Cookies.set("isLoggedIn", "true", { expires: 7 }); // Set cookie for 7 days
+      Cookies.set("isLoggedIn", "true", { expires: 7 });
+      setLocale(result.data.user.languagePref);
       router.push("/dashboard");
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
@@ -85,7 +88,12 @@ export default function LoginForm() {
         )}
       </div>
 
-      <Button variant="default" type="submit" className="mt-2" disabled={isSubmitting}>
+      <Button
+        variant="default"
+        type="submit"
+        className="mt-2"
+        disabled={isSubmitting}
+      >
         {isSubmitting ? "Logging in..." : "Login"}
       </Button>
     </form>
