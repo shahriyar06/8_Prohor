@@ -29,6 +29,36 @@
     }
   },
   "settings": {
+    "profile": {
+      "title": "Profile",
+      "description": "Customize your profile information.",
+      "name": "Name",
+      "email": "Email",
+      "accountType": "Account Type",
+      "language": "Language",
+      "priorityColors": "Priority Colors",
+      "priorityColorsDesc": "Pick a unique color for each priority level.",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "edit": "Update Profile",
+      "update": "Update",
+      "cancel": "Cancel",
+      "changePhoto": "Change photo"
+    },
+    "account": {
+      "title": "Account",
+      "description": "Manage your account settings and preferences."
+    },
+    "changePassword": {
+      "title": "Change password",
+      "description": "Enter your current password, then your new password and confirm.",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "update": "Update Password",
+      "updating": "Updating..."
+    },
     "appearance": {
       "title": "Appearance",
       "description": "Customize how the application looks. Theme can also be changed from the header."

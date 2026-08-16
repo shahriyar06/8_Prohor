@@ -9,7 +9,7 @@ export default function AppearancePage() {
   return (
     <div>
       <h1 className="text-2xl font-semibold">{t("title")}</h1>
-      <p className="text-muted-foreground text-sm">{t("description")}</p>
+      <p className="text-muted-foreground text-xs md:text-sm">{t("description")}</p>
       <hr className="mb-4 mt-2" />
       <div className="px-1 space-y-10">
         <Theme />

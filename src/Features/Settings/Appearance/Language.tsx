@@ -3,6 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { Languages } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useLanguageStore } from "@/store/languageStore";
+import { authService } from "@/Service/authService";
+import { useHydratedLocale } from "@/hooks/useHydratedLocale";
 
 const LANGUAGE_OPTIONS = [
   { value: "en" as const, label: "English" },
@@ -18,10 +23,28 @@ const LANGUAGE_OPTIONS = [
 
 export default function Language() {
   const t = useTranslations("settings.language");
-  const { locale, setLocale } = useLanguageStore();
+  const { setLocale } = useLanguageStore();
+  const activeLocale = useHydratedLocale();
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const currentLabel =
-    LANGUAGE_OPTIONS.find((opt) => opt.value === locale)?.label ?? "English";
+    LANGUAGE_OPTIONS.find((opt) => opt.value === activeLocale)?.label ??
+    "English";
+
+  async function handleChange(value: "en" | "bn") {
+    setLocale(value);
+    setIsUpdating(true);
+    try {
+      await authService.updateLanguage(value);
+    } catch (error) {
+      const err = error as AxiosError<{ message: string }>;
+      toast.error(
+        err.response?.data?.message || "Failed to save language preference",
+      );
+    } finally {
+      setIsUpdating(false);
+    }
+  }
 
   return (
     <div>
@@ -35,7 +58,7 @@ export default function Language() {
           <DropdownMenu>
             <DropdownMenuTrigger
               render={
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" disabled={isUpdating}>
                   <Languages className="size-4" />
                 </Button>
               }
@@ -44,9 +67,9 @@ export default function Language() {
               {LANGUAGE_OPTIONS.map((opt) => (
                 <DropdownMenuItem
                   key={opt.value}
-                  onClick={() => setLocale(opt.value)}
+                  onClick={() => handleChange(opt.value)}
                   className={
-                    locale === opt.value ? "text-primary font-medium" : ""
+                    activeLocale === opt.value ? "text-primary font-medium" : ""
                   }
                 >
                   {opt.label}
