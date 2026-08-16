@@ -163,9 +163,6 @@ export default function RegisterForm() {
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
-          {errors.password && (
-            <p className="text-sm text-red-500">{errors.password.message}</p>
-          )}
         </div>
 
         <div className="flex flex-col col-span-1 gap-1.5">
@@ -189,6 +186,9 @@ export default function RegisterForm() {
             </button>
           </div>
         </div>
+        {errors.password && (
+          <p className="text-sm text-red-500">{errors.password.message}</p>
+        )}
         {errors.confirmPassword && (
           <p className="text-sm text-red-500">
             {errors.confirmPassword.message}
