@@ -24,9 +24,27 @@
       "userManagement": "User Management",
       "settings": "Settings",
       "profile": "Profile",
+      "organization": "Organization",
       "account": "Account",
       "appearance": "Appearance"
     }
+  },
+  "organizations": {
+    "title": "Organization",
+    "description": "Everything you need to build, manage and grow your organization.",
+    "name": "Organization Name",
+    "prefix": "Member ID Prefix",
+    "prefixHint": "Used to auto-generate member IDs (e.g. MEM-0001)",
+    "address": "Address",
+    "phoneNumber": "Phone Number",
+    "priorityColors": "Priority Colors",
+    "priorityColorsDesc": "Set from your profile — visible to all members.",
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "edit": "Update Info",
+    "update": "Update",
+    "cancel": "Cancel"
   },
   "settings": {
     "profile": {

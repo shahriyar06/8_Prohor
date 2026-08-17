@@ -23,6 +23,10 @@ function onRefreshed(token: string) {
   refreshSubscribers = [];
 }
 
+function onRefreshFailed() {
+  refreshSubscribers = [];
+}
+
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -30,8 +34,9 @@ apiClient.interceptors.response.use(
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
           refreshSubscribers.push((token: string) => {
+            if (!token) return reject(error);
             originalRequest.headers.Authorization = `Bearer ${token}`;
             resolve(apiClient(originalRequest));
           });
@@ -48,9 +53,13 @@ apiClient.interceptors.response.use(
         localStorage.setItem("accessToken", newAccessToken);
         onRefreshed(newAccessToken);
 
+        if (originalRequest.data instanceof FormData) {
+          delete originalRequest.headers["Content-Type"];
+        }
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return apiClient(originalRequest);
       } catch (refreshError) {
+        onRefreshFailed();
         localStorage.removeItem("accessToken");
         Cookies.remove("isLoggedIn");
         if (
