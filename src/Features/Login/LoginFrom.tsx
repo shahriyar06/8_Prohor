@@ -13,12 +13,14 @@ import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import Cookies from "js-cookie";
 import { useLanguageStore } from "@/store/languageStore";
+import { useUserStore } from "@/store/userStore";
 
 export default function LoginForm() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const setLocale = useLanguageStore((state) => state.setLocale);
+  const clearProfile = useUserStore((state) => state.clearProfile);
 
   const {
     register,
@@ -36,6 +38,7 @@ export default function LoginForm() {
       toast.success(result.message || "Logged in successfully");
       localStorage.setItem("accessToken", result.data.accessToken);
       Cookies.set("isLoggedIn", "true", { expires: 7 });
+      clearProfile();
       setLocale(result.data.user.languagePref);
       router.push("/dashboard");
     } catch (error) {

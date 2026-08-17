@@ -153,7 +153,7 @@ export default function ChangePassword() {
         </div>
 
         <Button variant="default" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Updating..." : "Update Password"}
+          {isSubmitting ? t("updating") : t("update")}
         </Button>
       </form>
     </div>
