@@ -12,7 +12,7 @@ export default function AccountPage() {
       <p className="text-muted-foreground text-xs md:text-sm">
         {t("description")}
       </p>
-      <hr className="mb-4 mt-1" />
+      <hr className="mb-4 mt-2" />
       <div className="px-1">
         <ChangePassword />
       </div>

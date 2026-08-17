@@ -7,6 +7,7 @@ interface UserState {
   isLoading: boolean;
   fetchProfile: () => Promise<void>;
   setProfile: (profile: ProfileData) => void;
+  clearProfile: () => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
@@ -22,4 +23,5 @@ export const useUserStore = create<UserState>((set) => ({
     }
   },
   setProfile: (profile) => set({ profile }),
+  clearProfile: () => set({ profile: null }), 
 }));

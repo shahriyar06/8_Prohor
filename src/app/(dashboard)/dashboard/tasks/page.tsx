@@ -1,7 +1,9 @@
-
+import TaskDetails from "@/Features/Tasks/TaskDetails";
 
 export default function TasksPage() {
   return (
-    <div>Tasks page</div>
-  )
+    <>
+      <TaskDetails />
+    </>
+  );
 }

@@ -49,7 +49,11 @@ export default function RegisterForm() {
   const onSubmit = async (data: RegisterFormValues) => {
     setIsSubmitting(true);
     try {
-      const result = await authService.register(data);
+      const payload =
+        data.accountType === "personal"
+          ? { ...data, organizationName: undefined }
+          : data;
+      const result = await authService.register(payload);
       toast.success(result.message || "Registered successfully");
 
       if (result.data.requiresVerification) {
