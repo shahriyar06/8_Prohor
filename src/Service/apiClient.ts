@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
@@ -6,7 +7,8 @@ const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
-  const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -50,7 +52,11 @@ apiClient.interceptors.response.use(
         return apiClient(originalRequest);
       } catch (refreshError) {
         localStorage.removeItem("accessToken");
-        if (typeof window !== "undefined") {
+        Cookies.remove("isLoggedIn");
+        if (
+          typeof window !== "undefined" &&
+          window.location.pathname !== "/login"
+        ) {
           window.location.href = "/login";
         }
         return Promise.reject(refreshError);
@@ -60,7 +66,7 @@ apiClient.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default apiClient;

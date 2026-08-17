@@ -16,13 +16,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { authService } from "@/Service/authService";
-import { ProfileData } from "@/Type/profile";
 import { useUserStore } from "@/store/userStore";
 
 export default function Avatar() {
   const router = useRouter();
   const t = useTranslations("sidebar.items");
   const { profile, fetchProfile } = useUserStore();
+  const clearProfile = useUserStore((state) => state.clearProfile);
 
   useEffect(() => {
     if (!profile) fetchProfile();
@@ -32,6 +32,7 @@ export default function Avatar() {
     authService.logout().finally(() => {
       localStorage.removeItem("accessToken");
       Cookies.remove("isLoggedIn");
+      clearProfile();
       router.push("/login");
     });
   }
@@ -72,12 +73,14 @@ export default function Avatar() {
         <DropdownMenuGroup>
           <DropdownMenuItem
             onClick={() => router.push("/dashboard/settings/profile")}
+            className="hover:cursor-pointer"
           >
             <User className="size-4 mr-2" />
             {t("profile")}
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => router.push("/dashboard/settings/account")}
+            className="hover:cursor-pointer"
           >
             <Settings className="size-4 mr-2" />
             {t("account")}
@@ -88,7 +91,7 @@ export default function Avatar() {
 
         <DropdownMenuItem
           onClick={handleLogout}
-          className="text-destructive focus:text-destructive"
+          className="text-destructive hover:cursor-pointer focus:text-destructive"
         >
           <LogOut className="size-4 mr-2" />
           Sign out
