@@ -1,7 +1,9 @@
-
+import MemberDetails from "@/Features/UserManagement/MemberDetails";
 
 export default function UserManagementPage() {
   return (
-    <div>User Management Page</div>
-  )
+    <>
+      <MemberDetails />
+    </>
+  );
 }
