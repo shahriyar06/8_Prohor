@@ -203,6 +203,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: Settings,
         items: [
           { title: t("items.profile"), url: "/dashboard/settings/profile" },
+          { title: t("items.organization"), url: "/dashboard/settings/organization" },
           { title: t("items.account"), url: "/dashboard/settings/account" },
           {
             title: t("items.appearance"),

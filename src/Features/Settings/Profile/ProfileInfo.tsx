@@ -93,7 +93,7 @@ export default function ProfileInfo() {
       if (photoFile) formData.append("profilePhoto", photoFile);
 
       const result = await authService.updateProfile(formData);
-      setProfile(result.data.user); // shared store আপডেট হবে, Avatar-ও automatic নতুন ছবি/নাম পাবে
+      setProfile(result.data.user);
       toast.success(result.message || "Profile updated");
       setIsEditing(false);
       setPhotoFile(null);
@@ -148,7 +148,7 @@ export default function ProfileInfo() {
       </div>
 
       {/* Fields */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-x-10 lg:gap-y-6 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-x-10 lg:gap-y-6">
         <div className="flex flex-col gap-1.5">
           <Label>{t("name")}</Label>
           {isEditing ? (
