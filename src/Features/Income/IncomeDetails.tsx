@@ -5,9 +5,14 @@ import { useState } from "react";
 import income from "@/assets/income.png";
 import due from "@/assets/due.png";
 import paid from "@/assets/paid.png";
+import { useTranslations } from "next-intl";
+import IncomeTable from "./IncomeTable";
+import AddIncomeModal from "./AddIncomeModal";
 
 export default function IncomeDetails() {
+  const t = useTranslations("income");
   const [modalOpen, setModalOpen] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   return (
     <div>
@@ -46,13 +51,12 @@ export default function IncomeDetails() {
         />
       </div>
 
-      {/* <AddTaskModal
+      <IncomeTable refreshKey={refreshKey} />
+      <AddIncomeModal
         open={modalOpen}
         onOpenChange={setModalOpen}
-        onSuccess={() => {
-          // pore eikhane task list refetch korar logic bosbe
-        }}
-      /> */}
+        onSuccess={() => setRefreshKey((p) => p + 1)}
+      />
     </div>
   );
 }
