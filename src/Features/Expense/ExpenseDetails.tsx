@@ -1,9 +1,14 @@
 import HeadCard from "@/components/common/HeadCard";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
+import AddExpenseModal from "./AddExpenseModal";
+import ExpenseTable from "./ExpenseTable";
 
 export default function ExpenseDetails() {
+  const t = useTranslations("expense");
   const [modalOpen, setModalOpen] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
   
   return (
     <div>
@@ -42,13 +47,12 @@ export default function ExpenseDetails() {
         />
       </div>
 
-      {/* <AddTaskModal
+      <ExpenseTable refreshKey={refreshKey} />
+      <AddExpenseModal
         open={modalOpen}
         onOpenChange={setModalOpen}
-        onSuccess={() => {
-          // pore eikhane task list refetch korar logic bosbe
-        }}
-      /> */}
+        onSuccess={() => setRefreshKey((p) => p + 1)}
+      />
     </div>
   );
 }
