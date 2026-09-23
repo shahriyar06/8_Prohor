@@ -29,6 +29,46 @@
       "appearance": "Appearance"
     }
   },
+  "income": {
+    "title": "Income",
+    "description": "Track and manage all your income entries.",
+    "addIncome": "Add Income",
+    "adding": "Adding...",
+    "amount": "Amount",
+    "category": "Category",
+    "source": "Source",
+    "note": "Note",
+    "date": "Date",
+    "recurring": "Recurring",
+    "cancel": "Cancel",
+    "update": "Update",
+    "table": {
+      "date": "Date",
+      "category": "Category",
+      "source": "Source",
+      "amount": "Amount",
+      "actions": "Actions"
+    },
+    "deleteConfirmTitle": "Delete this income entry?",
+    "deleteConfirmDesc": "This action cannot be undone.",
+    "yesDelete": "Yes, delete",
+    "cancelDelete": "Cancel"
+  },
+  "incomeCategory": {
+    "title": "Income Categories",
+    "description": "Organize your income sources into categories.",
+    "addCategory": "Add Category",
+    "adding": "Adding...",
+    "name": "Category Name",
+    "cancel": "Cancel",
+    "update": "Update",
+    "default": "Default",
+    "table": { "name": "Name", "actions": "Actions" },
+    "deleteConfirmTitle": "Delete this category?",
+    "deleteConfirmDesc": "This action cannot be undone. Categories with income entries cannot be deleted.",
+    "yesDelete": "Yes, delete",
+    "cancelDelete": "Cancel"
+  },
   "organizations": {
     "title": "Organization",
     "description": "Everything you need to build, manage and grow your organization.",
