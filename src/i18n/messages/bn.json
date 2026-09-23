@@ -113,6 +113,37 @@
     "yesDelete": "হ্যাঁ, ডিলিট করো",
     "cancelDelete": "বাতিল"
   },
+  "liability": {
+    "title": "দেনা",
+    "description": "কাকে কত টাকা দিতে হবে তার হিসাব রাখো।",
+    "addLiability": "দেনা যোগ করো",
+    "adding": "যোগ হচ্ছে...",
+    "personName": "ব্যক্তির নাম",
+    "amount": "পরিমাণ",
+    "reason": "কারণ",
+    "dueDate": "শেষ তারিখ",
+    "remindBeforeDays": "রিমাইন্ড (কত দিন আগে)",
+    "cancel": "বাতিল",
+    "update": "আপডেট",
+    "pending": "বাকি",
+    "partial": "আংশিক",
+    "paid": "পরিশোধিত",
+    "addPayment": "টাকা জমা দাও",
+    "paymentAmount": "জমার পরিমাণ",
+    "recordPayment": "জমা রেকর্ড করো",
+    "table": {
+      "person": "ব্যক্তি",
+      "amount": "পরিমাণ",
+      "paid": "পরিশোধিত",
+      "due": "শেষ তারিখ",
+      "status": "স্ট্যাটাস",
+      "actions": "অ্যাকশন"
+    },
+    "deleteConfirmTitle": "এই দেনা ডিলিট করবে?",
+    "deleteConfirmDesc": "এটা আর ফেরানো যাবে না।",
+    "yesDelete": "হ্যাঁ, ডিলিট করো",
+    "cancelDelete": "বাতিল"
+  },
   "member": {
     "title": "ইউজার ম্যানেজমেন্ট",
     "description": "তোমার অর্গানাইজেশনের সব ইউজার এবং তাদের অ্যাক্সেস সহজেই পরিচালনা করো।",
