@@ -144,6 +144,37 @@
     "yesDelete": "হ্যাঁ, ডিলিট করো",
     "cancelDelete": "বাতিল"
   },
+  "receivable": {
+    "title": "পাওনা",
+    "description": "কার কাছ থেকে কত টাকা পাওয়ার আছে তার হিসাব রাখো।",
+    "addReceivable": "পাওনা যোগ করো",
+    "adding": "যোগ হচ্ছে...",
+    "personName": "ব্যক্তির নাম",
+    "amount": "পরিমাণ",
+    "reason": "কারণ",
+    "dueDate": "শেষ তারিখ",
+    "remindBeforeDays": "রিমাইন্ড (কত দিন আগে)",
+    "cancel": "বাতিল",
+    "update": "আপডেট",
+    "pending": "বাকি",
+    "partial": "আংশিক",
+    "received": "পাওয়া হয়েছে",
+    "addReceipt": "টাকা গ্রহণ করো",
+    "receiptAmount": "গ্রহণের পরিমাণ",
+    "recordReceipt": "গ্রহণ রেকর্ড করো",
+    "table": {
+      "person": "ব্যক্তি",
+      "amount": "পরিমাণ",
+      "received": "পাওয়া গেছে",
+      "due": "শেষ তারিখ",
+      "status": "স্ট্যাটাস",
+      "actions": "অ্যাকশন"
+    },
+    "deleteConfirmTitle": "এই পাওনা ডিলিট করবে?",
+    "deleteConfirmDesc": "এটা আর ফেরানো যাবে না।",
+    "yesDelete": "হ্যাঁ, ডিলিট করো",
+    "cancelDelete": "বাতিল"
+  },
   "member": {
     "title": "ইউজার ম্যানেজমেন্ট",
     "description": "তোমার অর্গানাইজেশনের সব ইউজার এবং তাদের অ্যাক্সেস সহজেই পরিচালনা করো।",
