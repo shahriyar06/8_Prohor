@@ -113,6 +113,37 @@
     "yesDelete": "Yes, delete",
     "cancelDelete": "Cancel"
   },
+  "liability": {
+    "title": "Liability",
+    "description": "Track money you owe to others.",
+    "addLiability": "Add Liability",
+    "adding": "Adding...",
+    "personName": "Person Name",
+    "amount": "Amount",
+    "reason": "Reason",
+    "dueDate": "Due Date",
+    "remindBeforeDays": "Remind me (days before due)",
+    "cancel": "Cancel",
+    "update": "Update",
+    "pending": "Pending",
+    "partial": "Partial",
+    "paid": "Paid",
+    "addPayment": "Add Payment",
+    "paymentAmount": "Payment Amount",
+    "recordPayment": "Record Payment",
+    "table": {
+      "person": "Person",
+      "amount": "Amount",
+      "paid": "Paid",
+      "due": "Due Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "deleteConfirmTitle": "Delete this liability?",
+    "deleteConfirmDesc": "This action cannot be undone.",
+    "yesDelete": "Yes, delete",
+    "cancelDelete": "Cancel"
+  },
   "organizations": {
     "title": "Organization",
     "description": "Everything you need to build, manage and grow your organization.",
