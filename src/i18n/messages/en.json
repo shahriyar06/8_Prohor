@@ -144,6 +144,37 @@
     "yesDelete": "Yes, delete",
     "cancelDelete": "Cancel"
   },
+  "receivable": {
+    "title": "Receivable",
+    "description": "Track money others owe you.",
+    "addReceivable": "Add Receivable",
+    "adding": "Adding...",
+    "personName": "Person Name",
+    "amount": "Amount",
+    "reason": "Reason",
+    "dueDate": "Due Date",
+    "remindBeforeDays": "Remind me (days before due)",
+    "cancel": "Cancel",
+    "update": "Update",
+    "pending": "Pending",
+    "partial": "Partial",
+    "received": "Received",
+    "addReceipt": "Add Receipt",
+    "receiptAmount": "Receipt Amount",
+    "recordReceipt": "Record Receipt",
+    "table": {
+      "person": "Person",
+      "amount": "Amount",
+      "received": "Received",
+      "due": "Due Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "deleteConfirmTitle": "Delete this receivable?",
+    "deleteConfirmDesc": "This action cannot be undone.",
+    "yesDelete": "Yes, delete",
+    "cancelDelete": "Cancel"
+  },
   "organizations": {
     "title": "Organization",
     "description": "Everything you need to build, manage and grow your organization.",

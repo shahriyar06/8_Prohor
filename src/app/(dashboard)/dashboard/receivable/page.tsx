@@ -1,7 +1,7 @@
-import React from 'react'
+import ReceivableDetails from '@/Features/Receivable/ReceivableDetails'
 
 export default function ReceivablePage() {
   return (
-    <div>Receivable Page</div>
+    <ReceivableDetails />
   )
 }
