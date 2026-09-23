@@ -30,17 +30,22 @@ import {
 
 import { organizationService } from "@/Service/organizationService";
 import { Member } from "@/Type/member";
+import EditMemberModal from "./EditMemberModal";
 
 interface MembersTableProps {
   organizationId: string;
   refreshKey?: number;
 }
 
-export default function MembersTable({ organizationId, refreshKey }: MembersTableProps) {
+export default function MembersTable({
+  organizationId,
+  refreshKey,
+}: MembersTableProps) {
   const t = useTranslations("member");
   const [members, setMembers] = useState<Member[]>([]);
   const [deleteTarget, setDeleteTarget] = useState<Member | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [editMemberId, setEditMemberId] = useState<string | null>(null);
 
   useEffect(() => {
     if (organizationId) fetchMembers();
@@ -55,7 +60,10 @@ export default function MembersTable({ organizationId, refreshKey }: MembersTabl
     if (!deleteTarget) return;
     setIsDeleting(true);
     try {
-      const result = await organizationService.removeMember(organizationId, deleteTarget.id);
+      const result = await organizationService.removeMember(
+        organizationId,
+        deleteTarget.id,
+      );
       toast.success(result.message || "Member removed");
       setMembers((prev) => prev.filter((m) => m.id !== deleteTarget.id));
       setDeleteTarget(null);
@@ -79,12 +87,18 @@ export default function MembersTable({ organizationId, refreshKey }: MembersTabl
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="whitespace-nowrap">{t("table.memberId")}</TableHead>
-              <TableHead className="whitespace-nowrap">{t("table.name")}</TableHead>
+              <TableHead className="whitespace-nowrap">
+                {t("table.memberId")}
+              </TableHead>
+              <TableHead className="whitespace-nowrap">
+                {t("table.name")}
+              </TableHead>
               <TableHead className="hidden md:table-cell whitespace-nowrap">
                 {t("table.email")}
               </TableHead>
-              <TableHead className="whitespace-nowrap">{t("table.role")}</TableHead>
+              <TableHead className="whitespace-nowrap">
+                {t("table.role")}
+              </TableHead>
               <TableHead className="hidden sm:table-cell whitespace-nowrap">
                 {t("table.status")}
               </TableHead>
@@ -120,7 +134,9 @@ export default function MembersTable({ organizationId, refreshKey }: MembersTabl
                 <TableCell className="hidden md:table-cell whitespace-nowrap">
                   {member.user.email}
                 </TableCell>
-                <TableCell className="whitespace-nowrap">{member.role.name}</TableCell>
+                <TableCell className="whitespace-nowrap">
+                  {member.role.name}
+                </TableCell>
                 <TableCell className="hidden sm:table-cell whitespace-nowrap">
                   {member.profile?.memberStatus && (
                     <Badge
@@ -133,7 +149,11 @@ export default function MembersTable({ organizationId, refreshKey }: MembersTabl
                 </TableCell>
                 <TableCell className="text-right whitespace-nowrap">
                   <div className="flex justify-end gap-1">
-                    <Button variant="ghost" size="icon" disabled>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setEditMemberId(member.id)}
+                    >
                       <Pencil className="size-4" />
                     </Button>
                     {!member.role.isSystem && (
@@ -153,20 +173,34 @@ export default function MembersTable({ organizationId, refreshKey }: MembersTabl
         </Table>
       </div>
 
-      <AlertDialog open={!!deleteTarget} onOpenChange={(v) => !v && setDeleteTarget(null)}>
+      <AlertDialog
+        open={!!deleteTarget}
+        onOpenChange={(v) => !v && setDeleteTarget(null)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
-            <AlertDialogDescription>{t("deleteConfirmDesc")}</AlertDialogDescription>
+            <AlertDialogDescription>
+              {t("deleteConfirmDesc")}
+            </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>{t("cancelDelete")}</AlertDialogCancel>
+            <AlertDialogCancel disabled={isDeleting}>
+              {t("cancelDelete")}
+            </AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
               {isDeleting ? "..." : t("yesDelete")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <EditMemberModal
+        open={!!editMemberId}
+        onOpenChange={(v) => !v && setEditMemberId(null)}
+        organizationId={organizationId}
+        memberId={editMemberId}
+        onSuccess={fetchMembers}
+      />
     </>
   );
 }

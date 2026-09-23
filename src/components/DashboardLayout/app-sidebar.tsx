@@ -30,110 +30,6 @@ import Image from "next/image";
 import logo from "@/assets/8-prohor-logo.png";
 import { useTranslations } from "next-intl";
 
-// const data = {
-//   Main: [
-//     {
-//       title: "Dashboard",
-//       url: "/dashboard",
-//       icon: LayoutDashboard,
-//     },
-//     {
-//       title: "Task",
-//       url: "/dashboard/tasks",
-//       icon: ListTodo,
-//     },
-//     {
-//       title: "Stopwatch",
-//       url: "/dashboard/stopwatch",
-//       icon: Timer,
-//     },
-//   ],
-//   Finance: [
-//     {
-//       title: "Income Category",
-//       url: "dashboard/income-category",
-//       icon: FolderInput,
-//     },
-//     {
-//       title: "Income",
-//       url: "dashboard/income",
-//       icon: TrendingUp,
-//     },
-//     {
-//       title: "Expense Category",
-//       url: "dashboard/expense-category",
-//       icon: FolderOutput,
-//     },
-//     {
-//       title: "Expense",
-//       url: "dashboard/expense",
-//       icon: TrendingDown,
-//     },
-//     {
-//       title: "Liability",
-//       url: "dashboard/liability",
-//       icon: FolderMinus,
-//     },
-//     {
-//       title: "Receivable",
-//       url: "dashboard/receivable",
-//       icon: FolderPlus,
-//     },
-//   ],
-//   Admin: [
-//     {
-//       title: "Reports",
-//       url: "",
-//       icon: BookOpen,
-//       items: [
-//         {
-//           title: "Weekly",
-//           url: "dashboard/reports/weekly",
-//         },
-//         {
-//           title: "Monthly",
-//           url: "dashboard/reports/monthly",
-//         },
-//         {
-//           title: "Yearly",
-//           url: "dashboard/reports/yearly",
-//         },
-//       ],
-//     },
-//     {
-//       title: "Permissions",
-//       url: "dashboard/permissions",
-//       icon: ShieldCheck,
-//     },
-//     {
-//       title: "User Management",
-//       url: "dashboard/user-management",
-//       icon: UserRoundCheck,
-//     },
-//   ],
-//   Settings: [
-//     {
-//       title: "Settings",
-//       url: "",
-//       icon: Settings,
-//       items: [
-//         {
-//           title: "Profile",
-//           url: "dashboard/settings/profile",
-//         },
-//         {
-//           title: "Account",
-//           url: "dashboard/settings/account",
-//         },
-//         {
-//           title: "Appearance",
-//           url: "dashboard/settings/appearance",
-//         },
-//       ],
-//     },
-//   ],
-// };
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const t = useTranslations("sidebar");
 
@@ -218,14 +114,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <Link
           href="/dashboard"
-          className="flex text-center items-center justify-center py-1"
+          className="flex text-center w-[60%] mx-auto items-center justify-center py-1"
         >
           <Image
             src={logo}
             alt="8 Prohor"
             width={60}
             height={60}
-            className="shrink-0 text-center items-center"
+            priority
+            quality={100}
+            className="shrink-0 text-center items-center w-full h-14"
           />
           {/* <span className="font-semibold text-sm group-data-[collapsible=icon]:hidden">
             8 Prohor
