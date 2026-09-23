@@ -1,7 +1,5 @@
-
+import IncomeDetails from "@/Features/Income/IncomeDetails";
 
 export default function IncomePage() {
-  return (
-    <div>Income page</div>
-  )
+  return <IncomeDetails />;
 }
