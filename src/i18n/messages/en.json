@@ -192,6 +192,14 @@
     "update": "Update",
     "cancel": "Cancel"
   },
+  "permission": {
+    "title": "Permissions",
+    "description": "Control what each role can access in your organization.",
+    "selectRole": "Select a role",
+    "save": "Save Permissions",
+    "saved": "Permissions updated",
+    "adminNote": "Admin role always has full access and cannot be changed."
+  },
   "member": {
     "title": "User Management",
     "description": "Effortlessly manage users and their access throughout your organization.",

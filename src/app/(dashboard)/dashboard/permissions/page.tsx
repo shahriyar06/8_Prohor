@@ -1,5 +1,5 @@
-import React from "react";
+import PermissionDetails from "@/Features/Permission/PermissionDetails";
 
 export default function PermissionsPage() {
-  return <div>Permissions Page</div>;
+  return <PermissionDetails />;
 }
