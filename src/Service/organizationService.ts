@@ -51,4 +51,22 @@ export const organizationService = {
     );
     return response.data;
   },
+
+  async getRolePermissions(organizationId: string, roleId: string) {
+    const response = await apiClient.get(
+      `/organizations/${organizationId}/roles/${roleId}/permissions`,
+    );
+    return response.data;
+  },
+  async setRolePermissions(
+    organizationId: string,
+    roleId: string,
+    permissionKeys: string[],
+  ) {
+    const response = await apiClient.put(
+      `/organizations/${organizationId}/roles/${roleId}/permissions`,
+      { permissionKeys },
+    );
+    return response.data;
+  },
 };
