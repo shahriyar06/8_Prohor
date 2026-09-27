@@ -91,6 +91,7 @@
       "category": "Category",
       "paymentMethod": "Method",
       "amount": "Amount",
+      "note":"Note",
       "actions": "Actions"
     },
     "deleteConfirmTitle": "Delete this expense entry?",
