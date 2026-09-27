@@ -1,7 +1,6 @@
 "use client";
 
 import { Moon, Sun, Monitor } from "lucide-react";
-import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import {
   DropdownMenu,
@@ -11,11 +10,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useMounted } from "@/hooks/useMounted";
+import { useDashboardTheme } from "@/components/providers/DashboardThemeProvider";
 
 export default function Theme() {
-  const { theme, setTheme } = useTheme();
+  // const { theme, setTheme } = useTheme();
   const t = useTranslations("settings.theme");
   const mounted = useMounted();
+  const { theme, setTheme } = useDashboardTheme();
 
   const THEME_OPTIONS = [
     { value: "light", label: t("light"), icon: Sun },

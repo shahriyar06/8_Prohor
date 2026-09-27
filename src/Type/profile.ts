@@ -6,6 +6,8 @@ export interface ProfileData {
   languagePref: string;
   profilePhoto: string | null;
   priorityColors: { low: string; medium: string; high: string } | null;
+  allowedRoutes: string[];
+  trialEndsAt: string | null;
 }
 
 export type PriorityColors = ProfileData["priorityColors"];

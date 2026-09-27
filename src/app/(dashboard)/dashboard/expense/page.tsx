@@ -1,7 +1,8 @@
+import ExpenseDetails from "@/Features/Expense/ExpenseDetails";
 
 
 export default function ExpensePage() {
   return (
-    <div>Expense Page</div>
+    <ExpenseDetails />
   )
 }

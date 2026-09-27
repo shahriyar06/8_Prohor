@@ -1,7 +1,8 @@
 "use client";
 
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { usePathname } from "next/navigation";
-import { ThemeProvider } from "./theme-provider";
+import { DashboardThemeProvider } from "../providers/DashboardThemeProvider";
 
 export function ConditionalThemeProvider({
   children,
@@ -16,13 +17,9 @@ export function ConditionalThemeProvider({
   }
 
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
+    <DashboardThemeProvider
     >
-      {children}
-    </ThemeProvider>
+      <div className="dashboard-theme-scope contents">{children}</div>
+    </DashboardThemeProvider>
   );
 }
