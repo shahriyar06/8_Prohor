@@ -7,12 +7,25 @@ import { AxiosError } from "axios";
 import { format } from "date-fns";
 import { Trash2, CircleDollarSign } from "lucide-react";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
 import { liabilityService } from "@/Service/liabilityService";
@@ -57,41 +70,80 @@ export default function LiabilityTable({ refreshKey }: { refreshKey: number }) {
     paid: "bg-green-500/10 text-green-600",
   };
 
+  console.log(liabilities);
+
   return (
     <>
       <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="whitespace-nowrap">{t("table.person")}</TableHead>
-              <TableHead className="whitespace-nowrap">{t("table.amount")}</TableHead>
-              <TableHead className="hidden md:table-cell whitespace-nowrap">{t("table.paid")}</TableHead>
-              <TableHead className="whitespace-nowrap">{t("table.due")}</TableHead>
-              <TableHead className="whitespace-nowrap">{t("table.status")}</TableHead>
-              <TableHead className="text-right whitespace-nowrap">{t("table.actions")}</TableHead>
+              <TableHead className="whitespace-nowrap">
+                {t("table.person")}
+              </TableHead>
+              <TableHead className="whitespace-nowrap">
+                {t("table.amount")}
+              </TableHead>
+              <TableHead className="hidden md:table-cell whitespace-nowrap">
+                {t("table.paid")}
+              </TableHead>
+              <TableHead className="whitespace-nowrap">
+                {t("table.due")}
+              </TableHead>
+              <TableHead className="whitespace-nowrap">
+                {t("table.status")}
+              </TableHead>
+              <TableHead className="whitespace-nowrap w-[250px] min-w-[250px] max-w-[250px]">
+                {t("table.reason")}
+              </TableHead>
+              <TableHead className="text-right whitespace-nowrap">
+                {t("table.actions")}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {liabilities.map((l) => (
               <TableRow key={l.id}>
-                <TableCell className="whitespace-nowrap">{l.personName}</TableCell>
-                <TableCell className="whitespace-nowrap">{l.currency} {Number(l.amount).toLocaleString()}</TableCell>
-                <TableCell className="hidden md:table-cell whitespace-nowrap">
+                <TableCell className="whitespace-nowrap">
+                  {l.personName}
+                </TableCell>
+                <TableCell className="whitespace-nowrap text-red-600">
+                  {l.currency} {Number(l.amount).toLocaleString()}
+                </TableCell>
+                <TableCell className="hidden md:table-cell whitespace-nowrap text-green-700">
                   {l.currency} {Number(l.paidAmount).toLocaleString()}
                 </TableCell>
-                <TableCell className="whitespace-nowrap">{format(new Date(l.dueDate), "PP")}</TableCell>
                 <TableCell className="whitespace-nowrap">
-                  <Badge className={statusVariant[l.status]} variant="secondary">{t(l.status)}</Badge>
+                  {format(new Date(l.dueDate), "PP")}
+                </TableCell>
+                <TableCell className="whitespace-nowrap">
+                  <Badge
+                    className={statusVariant[l.status]}
+                    variant="secondary"
+                  >
+                    {t(l.status)}
+                  </Badge>
+                </TableCell>
+                <TableCell className="w-[250px] min-w-[250px] max-w-[250px] whitespace-normal">
+                  {l.reason}
                 </TableCell>
                 <TableCell className="text-right whitespace-nowrap">
                   <div className="flex justify-end gap-1">
                     {l.status !== "paid" && (
-                      <Button variant="ghost" size="icon" onClick={() => setPaymentTarget(l)}>
-                        <CircleDollarSign className="size-4 text-green-600" />
+                      <Button
+                        variant="update"
+                        size="icon"
+                        onClick={() => setPaymentTarget(l)}
+                      >
+                        <CircleDollarSign className="size-4" />
                       </Button>
                     )}
-                    <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(l)}>
-                      <Trash2 className="size-4 text-destructive" />
+                    <Button
+                      variant="delete"
+                      size="icon"
+                      onClick={() => setDeleteTarget(l)}
+                    >
+                      <Trash2 className="size-4" />
                     </Button>
                   </div>
                 </TableCell>
@@ -108,14 +160,21 @@ export default function LiabilityTable({ refreshKey }: { refreshKey: number }) {
         onSuccess={fetchLiabilities}
       />
 
-      <AlertDialog open={!!deleteTarget} onOpenChange={(v) => !v && setDeleteTarget(null)}>
+      <AlertDialog
+        open={!!deleteTarget}
+        onOpenChange={(v) => !v && setDeleteTarget(null)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
-            <AlertDialogDescription>{t("deleteConfirmDesc")}</AlertDialogDescription>
+            <AlertDialogDescription>
+              {t("deleteConfirmDesc")}
+            </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>{t("cancelDelete")}</AlertDialogCancel>
+            <AlertDialogCancel disabled={isDeleting}>
+              {t("cancelDelete")}
+            </AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
               {isDeleting ? "..." : t("yesDelete")}
             </AlertDialogAction>
