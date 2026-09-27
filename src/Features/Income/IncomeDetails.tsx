@@ -3,8 +3,8 @@ import HeadCard from "@/components/common/HeadCard";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import income from "@/assets/income.png";
-import due from "@/assets/due.png";
-import paid from "@/assets/paid.png";
+import monthlyIn from "@/assets/MonthltI.png";
+import dailyIn from "@/assets/DailyIn.png";
 import { useTranslations } from "next-intl";
 import IncomeTable from "./IncomeTable";
 import AddIncomeModal from "./AddIncomeModal";
@@ -18,36 +18,36 @@ export default function IncomeDetails() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">Income</h1>
+          <h1 className="text-2xl font-semibold">{t("title")}</h1>
           <p className="text-muted-foreground text-xs md:text-sm">
-            Track and manage your income sources.
+            {t("description")}
           </p>
         </div>
-        <Button onClick={() => setModalOpen(true)}>Add Income</Button>
+        <Button onClick={() => setModalOpen(true)}>{t("addIncome")}</Button>
       </div>
       <hr className="mb-4 mt-2" />
 
       <div className="pb-5 grid grid-cols-3 gap-5">
         <HeadCard
-          title="Total Income"
+          title={t("totalIncome")}
           value="$1,000"
           className="text-blue-500"
-          description="All income sources"
+          description={t("totalIncomed")}
           icon={income}
         />
         <HeadCard
-          title="Total Paid"
+          title={t("thisMonthIncome")}
           value="8"
           className="text-green-500"
-          description="Successfully added income sources"
-          icon={paid}
+          description={t("thisMonthIncomed")}
+          icon={monthlyIn}
         />
         <HeadCard
-          title="Total Due"
+          title={t("todayIncome")}
           value="2"
           className="text-red-500"
-          description="Income sources waiting to be added"
-          icon={due}
+          description={t("todayIncomed")}
+          icon={dailyIn}
         />
       </div>
 

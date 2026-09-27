@@ -60,6 +60,7 @@ export default function IncomeTable({ refreshKey }: { refreshKey: number }) {
               <TableHead className="whitespace-nowrap">{t("table.category")}</TableHead>
               <TableHead className="hidden md:table-cell whitespace-nowrap">{t("table.source")}</TableHead>
               <TableHead className="whitespace-nowrap">{t("table.amount")}</TableHead>
+              <TableHead className="whitespace-nowrap w-[300px] min-w-[300px] max-w-[300px]">{t("table.note")}</TableHead>
               <TableHead className="text-right whitespace-nowrap">{t("table.actions")}</TableHead>
             </TableRow>
           </TableHeader>
@@ -70,15 +71,18 @@ export default function IncomeTable({ refreshKey }: { refreshKey: number }) {
                 <TableCell className="whitespace-nowrap">{income.category.name}</TableCell>
                 <TableCell className="hidden md:table-cell whitespace-nowrap">{income.source ?? "—"}</TableCell>
                 <TableCell className="whitespace-nowrap font-medium text-green-600">
-                  +{income.currency} {Number(income.amount).toLocaleString()}
+                  {income.currency} {Number(income.amount).toLocaleString()}
+                </TableCell>
+                <TableCell className="w-[300px] min-w-[300px] max-w-[300px] whitespace-normal break-words">
+                  {income.note} 
                 </TableCell>
                 <TableCell className="text-right whitespace-nowrap">
                   <div className="flex justify-end gap-1">
-                    <Button variant="ghost" size="icon" onClick={() => setEditTarget(income)}>
+                    <Button variant="edit" size="icon" onClick={() => setEditTarget(income)}>
                       <Pencil className="size-4" />
                     </Button>
-                    <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(income)}>
-                      <Trash2 className="size-4 text-destructive" />
+                    <Button variant="delete" size="icon" onClick={() => setDeleteTarget(income)}>
+                      <Trash2 className="size-4" />
                     </Button>
                   </div>
                 </TableCell>

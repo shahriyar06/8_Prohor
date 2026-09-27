@@ -81,10 +81,10 @@ export default function ExpenseTable({ refreshKey }: { refreshKey: number }) {
                 <TableCell className="text-right whitespace-nowrap">
                   <div className="flex justify-end gap-1">
                     <Button variant="edit" size="icon" onClick={() => setEditTarget(expense)}>
-                      <Pencil className="size-4 text-blue-800" />
+                      <Pencil className="size-4" />
                     </Button>
                     <Button variant="delete" size="icon" onClick={() => setDeleteTarget(expense)}>
-                      <Trash2 className="size-4 text-destructive" />
+                      <Trash2 className="size-4" />
                     </Button>
                   </div>
                 </TableCell>
@@ -108,7 +108,7 @@ export default function ExpenseTable({ refreshKey }: { refreshKey: number }) {
             <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
             <AlertDialogDescription>{t("deleteConfirmDesc")}</AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="bg-white">
+          <AlertDialogFooter>
             <AlertDialogCancel disabled={isDeleting}>{t("cancelDelete")}</AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
               {isDeleting ? "..." : t("yesDelete")}
