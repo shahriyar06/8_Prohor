@@ -5,6 +5,9 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import AddExpenseModal from "./AddExpenseModal";
 import ExpenseTable from "./ExpenseTable";
+import expense from "@/assets/Expense.png"
+import monthlyex from "@/assets/MonthlyEX.png"
+import dailyex from "@/assets/DailyEx.png"
 
 export default function ExpenseDetails() {
   const t = useTranslations("expense");
@@ -28,25 +31,26 @@ export default function ExpenseDetails() {
         <HeadCard
           title="Total Expense"
           value="$500"
-          className="text-red-500"
-          description="All expense sources"
-          // icon={expense}
+          className="text-blue-500"
+          description="All expenses combined"
+          icon={expense}
         />
         <HeadCard
-          title="Total Paid"
-          value="8"
+          title="This Month's Expense"
+          value="$200"
           className="text-green-500"
-          description="Successfully added expense sources"
-          // icon={paid}
+          description="Expenses this month"
+          icon={monthlyex}
         />
         <HeadCard
-          title="Total Due"
-          value="2"
+          title="Average Daily Expense"
+          value="$20"
           className="text-red-500"
-          description="Expense sources waiting to be added"
-          // icon={due}
+          description="Average spending per day"
+          icon={dailyex}
         />
       </div>
+
 
       <ExpenseTable refreshKey={refreshKey} />
       <AddExpenseModal
