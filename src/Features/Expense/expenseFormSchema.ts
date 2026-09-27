@@ -10,4 +10,5 @@ export const expenseFormSchema = z.object({
   recurrenceRule: z.string().optional(),
 });
 
+
 export type ExpenseFormValues = z.infer<typeof expenseFormSchema>;

@@ -158,6 +158,7 @@ export default function EditExpenseModal({ open, onOpenChange, expense, onSucces
             <Textarea {...register("note")} />
           </div>
 
+
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>{t("cancel")}</Button>
             <Button type="submit" disabled={isSubmitting}>{isSubmitting ? "..." : t("update")}</Button>

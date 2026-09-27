@@ -91,6 +91,7 @@
       "category": "ক্যাটাগরি",
       "paymentMethod": "মেথড",
       "amount": "পরিমাণ",
+      "note":"মন্তব্য",
       "actions": "অ্যাকশন"
     },
     "deleteConfirmTitle": "এই খরচটি ডিলিট করবে?",

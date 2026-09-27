@@ -50,6 +50,8 @@ export default function ExpenseTable({ refreshKey }: { refreshKey: number }) {
     }
   }
 
+  console.log(expenses)
+
   return (
     <>
       <div className="overflow-x-auto rounded-md border">
@@ -60,6 +62,7 @@ export default function ExpenseTable({ refreshKey }: { refreshKey: number }) {
               <TableHead className="whitespace-nowrap">{t("table.category")}</TableHead>
               <TableHead className="hidden md:table-cell whitespace-nowrap">{t("table.paymentMethod")}</TableHead>
               <TableHead className="whitespace-nowrap">{t("table.amount")}</TableHead>
+              <TableHead className="whitespace-nowrap w-[250px] min-w-[250px] max-w-[250px]">{t("table.note")}</TableHead>
               <TableHead className="text-right whitespace-nowrap">{t("table.actions")}</TableHead>
             </TableRow>
           </TableHeader>
@@ -72,14 +75,17 @@ export default function ExpenseTable({ refreshKey }: { refreshKey: number }) {
                   {expense.paymentMethod ? t(expense.paymentMethod === "mobile_banking" ? "mobileBanking" : expense.paymentMethod) : "—"}
                 </TableCell>
                 <TableCell className="whitespace-nowrap font-medium text-red-600">
-                  -{expense.currency} {Number(expense.amount).toLocaleString()}
+                  {expense.currency} {Number(expense.amount).toLocaleString()}
+                </TableCell>
+                <TableCell className="w-[250px] min-w-[250px] max-w-[250px] whitespace-normal break-words">
+                  {expense.note} 
                 </TableCell>
                 <TableCell className="text-right whitespace-nowrap">
                   <div className="flex justify-end gap-1">
-                    <Button variant="ghost" size="icon" onClick={() => setEditTarget(expense)}>
-                      <Pencil className="size-4" />
+                    <Button variant="edit" size="icon" onClick={() => setEditTarget(expense)}>
+                      <Pencil className="size-4 text-blue-800" />
                     </Button>
-                    <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(expense)}>
+                    <Button variant="delete" size="icon" onClick={() => setDeleteTarget(expense)}>
                       <Trash2 className="size-4 text-destructive" />
                     </Button>
                   </div>
@@ -96,6 +102,7 @@ export default function ExpenseTable({ refreshKey }: { refreshKey: number }) {
         expense={editTarget}
         onSuccess={fetchExpenses}
       />
+
 
       <AlertDialog open={!!deleteTarget} onOpenChange={(v) => !v && setDeleteTarget(null)}>
         <AlertDialogContent>
