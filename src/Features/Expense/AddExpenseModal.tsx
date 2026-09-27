@@ -76,6 +76,7 @@ export default function AddExpenseModal({
   });
 
   const isRecurring = watch("isRecurring");
+  const amountField = register("amount");
 
   useEffect(() => {
     if (open) {
@@ -84,6 +85,13 @@ export default function AddExpenseModal({
         .then((res) => setCategories(res.data.categories));
     }
   }, [open]);
+
+  function handleOpenChange(nextOpen: boolean) {
+    if (!nextOpen) {
+      reset();
+    }
+    onOpenChange(nextOpen);
+  }
 
   async function onSubmit(data: ExpenseFormValues) {
     setIsSubmitting(true);
@@ -101,8 +109,21 @@ export default function AddExpenseModal({
     }
   }
 
+  const paymentMethodOptions = [
+    { value: "cash", label: t("cash") },
+    { value: "card", label: t("card") },
+    { value: "mobile_banking", label: t("mobileBanking") },
+    { value: "bank", label: t("bank") },
+  ];
+
+  const recurrenceOptions = [
+    { value: "daily", label: "Daily" },
+    { value: "weekly", label: "Weekly" },
+    { value: "monthly", label: "Monthly" },
+  ];
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{t("addExpense")}</DialogTitle>
@@ -118,7 +139,12 @@ export default function AddExpenseModal({
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder={t("category")} />
+                      <SelectValue placeholder={t("category")}>
+                        {field.value
+                          ? categories.find((cat) => cat.id === field.value)
+                              ?.name
+                          : null}
+                      </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
                       {categories.map((cat) => (
@@ -139,7 +165,28 @@ export default function AddExpenseModal({
 
             <div className="flex flex-col gap-1.5">
               <Label>{t("amount")} *</Label>
-              <Input type="number" step="0.01" {...register("amount")} />
+              <Input
+                type="text"
+                inputMode="decimal"
+                placeholder="1000"
+                {...amountField}
+                onKeyDown={(e) => {
+                  // minus, plus, e/E (scientific notation) — সব ব্লক
+                  if (["-", "+", "e", "E"].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  value = value.replace(/[^0-9.]/g, "");
+                  const parts = value.split(".");
+                  if (parts.length > 2) {
+                    value = parts[0] + "." + parts.slice(1).join("");
+                  }
+                  e.target.value = value;
+                  amountField.onChange(e);
+                }}
+              />
               {errors.amount && (
                 <p className="text-sm text-red-500">{errors.amount.message}</p>
               )}
@@ -194,15 +241,20 @@ export default function AddExpenseModal({
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder={t("paymentMethod")} />
+                      <SelectValue placeholder={t("paymentMethod")}>
+                        {field.value
+                          ? paymentMethodOptions.find(
+                              (opt) => opt.value === field.value,
+                            )?.label
+                          : null}
+                      </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="cash">{t("cash")}</SelectItem>
-                      <SelectItem value="card">{t("card")}</SelectItem>
-                      <SelectItem value="mobile_banking">
-                        {t("mobileBanking")}
-                      </SelectItem>
-                      <SelectItem value="bank">{t("bank")}</SelectItem>
+                      {paymentMethodOptions.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 )}
@@ -215,46 +267,54 @@ export default function AddExpenseModal({
             <Textarea {...register("note")} />
           </div>
 
-          <div className="flex items-center justify-between rounded-md border p-3">
-            <Label>{t("recurring")}</Label>
-            <Controller
-              name="isRecurring"
-              control={control}
-              render={({ field }) => (
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              )}
-            />
-          </div>
-
-          {isRecurring && (
-            <div className="flex flex-col gap-1.5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+            <div className="flex items-center justify-between rounded-md border p-3">
+              <Label>{t("recurring")}</Label>
               <Controller
-                name="recurrenceRule"
+                name="isRecurring"
                 control={control}
                 render={({ field }) => (
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Frequency" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="daily">Daily</SelectItem>
-                      <SelectItem value="weekly">Weekly</SelectItem>
-                      <SelectItem value="monthly">Monthly</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
                 )}
               />
             </div>
-          )}
+
+            {isRecurring && (
+              <div className="flex flex-col gap-1.5">
+                <Controller
+                  name="recurrenceRule"
+                  control={control}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Frequency">
+                          {field.value
+                            ? recurrenceOptions.find(
+                                (opt) => opt.value === field.value,
+                              )?.label
+                            : null}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="daily">Daily</SelectItem>
+                        <SelectItem value="weekly">Weekly</SelectItem>
+                        <SelectItem value="monthly">Monthly</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+            )}
+          </div>
 
           <DialogFooter>
             <Button
               type="button"
               variant="outline"
-              onClick={() => onOpenChange(false)}
+              onClick={() => handleOpenChange(false)}
             >
               {t("cancel")}
             </Button>
