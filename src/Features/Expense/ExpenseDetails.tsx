@@ -1,3 +1,4 @@
+"use client";
 import HeadCard from "@/components/common/HeadCard";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
@@ -29,21 +30,21 @@ export default function ExpenseDetails() {
           value="$500"
           className="text-red-500"
           description="All expense sources"
-          icon={expense}
+          // icon={expense}
         />
         <HeadCard
           title="Total Paid"
           value="8"
           className="text-green-500"
           description="Successfully added expense sources"
-          icon={paid}
+          // icon={paid}
         />
         <HeadCard
           title="Total Due"
           value="2"
           className="text-red-500"
           description="Expense sources waiting to be added"
-          icon={due}
+          // icon={due}
         />
       </div>
 
