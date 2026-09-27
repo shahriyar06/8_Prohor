@@ -18,12 +18,12 @@ export default function ExpenseDetails() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">Expense</h1>
+          <h1 className="text-2xl font-semibold">{t("title")}</h1>
           <p className="text-muted-foreground text-xs md:text-sm">
-            Track and manage your expense sources.
+            {t("description")}
           </p>
         </div>
-        <Button onClick={() => setModalOpen(true)}>Add Expense</Button>
+        <Button onClick={() => setModalOpen(true)}>{t("addExpense")}</Button>
       </div>
       <hr className="mb-4 mt-2" />
 

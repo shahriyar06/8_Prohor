@@ -14,12 +14,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
 } from "@/components/ui/dialog";
 
 import { expenseFormSchema, ExpenseFormValues } from "./expenseFormSchema";
@@ -34,20 +46,40 @@ interface EditExpenseModalProps {
   onSuccess?: () => void;
 }
 
-export default function EditExpenseModal({ open, onOpenChange, expense, onSuccess }: EditExpenseModalProps) {
+const paymentMethodOptions = [
+  { value: "cash", labelKey: "cash" },
+  { value: "card", labelKey: "card" },
+  { value: "mobile_banking", labelKey: "mobileBanking" },
+  { value: "bank", labelKey: "bank" },
+] as const;
+
+export default function EditExpenseModal({
+  open,
+  onOpenChange,
+  expense,
+  onSuccess,
+}: EditExpenseModalProps) {
   const t = useTranslations("expense");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [categories, setCategories] = useState<ExpenseCategory[]>([]);
 
   const {
-    register, handleSubmit, control, reset, formState: { errors },
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
   } = useForm<ExpenseFormValues>({
     resolver: zodResolver(expenseFormSchema),
   });
 
+  const amountField = register("amount");
+
   useEffect(() => {
     if (open) {
-      expenseService.listCategories().then((res) => setCategories(res.data.categories));
+      expenseService
+        .listCategories()
+        .then((res) => setCategories(res.data.categories));
     }
     if (open && expense) {
       reset({
@@ -62,13 +94,21 @@ export default function EditExpenseModal({ open, onOpenChange, expense, onSucces
     }
   }, [open, expense, reset]);
 
+  // Dialog বন্ধ হওয়ার (X, backdrop click, Cancel) সময় ফর্ম clean রিসেট করার জন্য
+  function handleOpenChange(nextOpen: boolean) {
+    if (!nextOpen) {
+      reset();
+    }
+    onOpenChange(nextOpen);
+  }
+
   async function onSubmit(data: ExpenseFormValues) {
     if (!expense) return;
     setIsSubmitting(true);
     try {
       const result = await expenseService.updateExpense(expense.id, data);
       toast.success(result.message || "Expense updated");
-      onOpenChange(false);
+      handleOpenChange(false);
       onSuccess?.();
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
@@ -81,76 +121,144 @@ export default function EditExpenseModal({ open, onOpenChange, expense, onSucces
   if (!expense) return null;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg">
-        <DialogHeader><DialogTitle>{t("addExpense")}</DialogTitle></DialogHeader>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent className="sm:max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>{t("editExpense")}</DialogTitle>
+        </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="flex flex-col gap-1.5">
-            <Label>{t("category")} *</Label>
-            <Controller
-              name="categoryId"
-              control={control}
-              render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {categories.map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+            <div className="flex flex-col gap-1.5">
+              <Label>{t("category")} *</Label>
+              <Controller
+                name="categoryId"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={t("category")}>
+                        {field.value
+                          ? categories.find((cat) => cat.id === field.value)
+                              ?.name
+                          : null}
+                      </SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map((cat) => (
+                        <SelectItem key={cat.id} value={cat.id}>
+                          {cat.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+              {errors.categoryId && (
+                <p className="text-sm text-red-500">
+                  {errors.categoryId.message}
+                </p>
               )}
-            />
-            {errors.categoryId && <p className="text-sm text-red-500">{errors.categoryId.message}</p>}
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <Label>{t("amount")} *</Label>
+              <Input
+                type="text"
+                inputMode="decimal"
+                placeholder="1000"
+                {...amountField}
+                onKeyDown={(e) => {
+                  if (["-", "+", "e", "E"].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  value = value.replace(/[^0-9.]/g, "");
+                  const parts = value.split(".");
+                  if (parts.length > 2) {
+                    value = parts[0] + "." + parts.slice(1).join("");
+                  }
+                  e.target.value = value;
+                  amountField.onChange(e);
+                }}
+              />
+              {errors.amount && (
+                <p className="text-sm text-red-500">{errors.amount.message}</p>
+              )}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <Label>{t("amount")} *</Label>
-            <Input type="number" step="0.01" {...register("amount")} />
-            {errors.amount && <p className="text-sm text-red-500">{errors.amount.message}</p>}
-          </div>
-
-          <div className="flex flex-col gap-1.5">
-            <Label>{t("date")} *</Label>
-            <Controller
-              name="date"
-              control={control}
-              render={({ field }) => (
-                <Popover>
-                  <PopoverTrigger
-                    render={
-                      <Button type="button" variant="outline" className={cn("justify-start text-left font-normal", !field.value && "text-muted-foreground")}>
-                        <CalendarIcon className="mr-2 size-4" />
-                        {field.value ? format(field.value, "PPP") : "Pick a date"}
-                      </Button>
-                    }
-                  />
-                  <PopoverContent className="p-0" align="start">
-                    <Calendar mode="single" selected={field.value} onSelect={field.onChange} />
-                  </PopoverContent>
-                </Popover>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+            <div className="flex flex-col gap-1.5">
+              <Label>{t("date")} *</Label>
+              <Controller
+                name="date"
+                control={control}
+                render={({ field }) => (
+                  <Popover>
+                    <PopoverTrigger
+                      render={
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className={cn(
+                            "justify-start text-left font-normal",
+                            !field.value && "text-muted-foreground",
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 size-4" />
+                          {field.value
+                            ? format(field.value, "PPP")
+                            : "Pick a date"}
+                        </Button>
+                      }
+                    />
+                    <PopoverContent className="p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                )}
+              />
+              {errors.date && (
+                <p className="text-sm text-red-500">{errors.date.message}</p>
               )}
-            />
-          </div>
+            </div>
 
-          <div className="flex flex-col gap-1.5">
-            <Label>{t("paymentMethod")}</Label>
-            <Controller
-              name="paymentMethod"
-              control={control}
-              render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="cash">{t("cash")}</SelectItem>
-                    <SelectItem value="card">{t("card")}</SelectItem>
-                    <SelectItem value="mobile_banking">{t("mobileBanking")}</SelectItem>
-                    <SelectItem value="bank">{t("bank")}</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
+            <div className="flex flex-col gap-1.5">
+              <Label>{t("paymentMethod")}</Label>
+              <Controller
+                name="paymentMethod"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={t("paymentMethod")}>
+                        {field.value
+                          ? t(
+                              paymentMethodOptions.find(
+                                (opt) => opt.value === field.value,
+                              )?.labelKey ?? "",
+                            )
+                          : null}
+                      </SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {paymentMethodOptions.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {t(opt.labelKey)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
           </div>
 
           <div className="flex flex-col gap-1.5">
@@ -158,10 +266,17 @@ export default function EditExpenseModal({ open, onOpenChange, expense, onSucces
             <Textarea {...register("note")} />
           </div>
 
-
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>{t("cancel")}</Button>
-            <Button type="submit" disabled={isSubmitting}>{isSubmitting ? "..." : t("update")}</Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => handleOpenChange(false)}
+            >
+              {t("cancel")}
+            </Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "..." : t("update")}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

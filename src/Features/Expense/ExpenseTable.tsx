@@ -50,8 +50,6 @@ export default function ExpenseTable({ refreshKey }: { refreshKey: number }) {
     }
   }
 
-  console.log(expenses)
-
   return (
     <>
       <div className="overflow-x-auto rounded-md border">
@@ -62,7 +60,7 @@ export default function ExpenseTable({ refreshKey }: { refreshKey: number }) {
               <TableHead className="whitespace-nowrap">{t("table.category")}</TableHead>
               <TableHead className="hidden md:table-cell whitespace-nowrap">{t("table.paymentMethod")}</TableHead>
               <TableHead className="whitespace-nowrap">{t("table.amount")}</TableHead>
-              <TableHead className="whitespace-nowrap w-[250px] min-w-[250px] max-w-[250px]">{t("table.note")}</TableHead>
+              <TableHead className="whitespace-nowrap w-[300px] min-w-[300px] max-w-[300px]">{t("table.note")}</TableHead>
               <TableHead className="text-right whitespace-nowrap">{t("table.actions")}</TableHead>
             </TableRow>
           </TableHeader>
@@ -77,7 +75,7 @@ export default function ExpenseTable({ refreshKey }: { refreshKey: number }) {
                 <TableCell className="whitespace-nowrap font-medium text-red-600">
                   {expense.currency} {Number(expense.amount).toLocaleString()}
                 </TableCell>
-                <TableCell className="w-[250px] min-w-[250px] max-w-[250px] whitespace-normal break-words">
+                <TableCell className="w-[300px] min-w-[300px] max-w-[300px] whitespace-normal break-words">
                   {expense.note} 
                 </TableCell>
                 <TableCell className="text-right whitespace-nowrap">
@@ -110,7 +108,7 @@ export default function ExpenseTable({ refreshKey }: { refreshKey: number }) {
             <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
             <AlertDialogDescription>{t("deleteConfirmDesc")}</AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
+          <AlertDialogFooter className="bg-white">
             <AlertDialogCancel disabled={isDeleting}>{t("cancelDelete")}</AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
               {isDeleting ? "..." : t("yesDelete")}
