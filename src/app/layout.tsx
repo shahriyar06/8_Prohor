@@ -3,7 +3,6 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ConditionalThemeProvider } from "@/components/common/ConditionalThemeProvider";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -28,7 +27,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans">
-        <ConditionalThemeProvider>
           <ToastContainer
             position="top-right"
             autoClose={3000}
@@ -43,7 +41,6 @@ export default function RootLayout({
             transition={Bounce}
           />
           {children}
-        </ConditionalThemeProvider>
       </body>
     </html>
   );

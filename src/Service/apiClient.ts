@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
@@ -72,6 +73,14 @@ apiClient.interceptors.response.use(
       } finally {
         isRefreshing = false;
       }
+    }
+
+    if (
+      error.response?.status === 403 &&
+      error.response?.data?.message?.includes("upgrade")
+    ) {
+      toast.error(error.response.data.message);
+      return Promise.reject(error);
     }
 
     return Promise.reject(error);
