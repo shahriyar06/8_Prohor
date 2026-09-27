@@ -63,7 +63,7 @@
   },
   "incomeCategory": {
     "title": "Income Categories",
-    "description": "Organize your income sources into categories.",
+    "description": "Organize your income sources into categories",
     "addCategory": "Add Category",
     "adding": "Adding...",
     "name": "Category Name",
@@ -78,7 +78,7 @@
   },
   "expense": {
     "title": "Expense",
-    "description": "Track and manage all your expense entries.",
+    "description": "Track and manage all your expense entries",
     "addExpense": "Add Expense",
     "editExpense": "Update Expense",
     "adding": "Adding...",
@@ -109,7 +109,7 @@
   },
   "expenseCategory": {
     "title": "Expense Categories",
-    "description": "Organize your expenses into categories.",
+    "description": "Organize your expenses into categories",
     "addCategory": "Add Category",
     "adding": "Adding...",
     "name": "Category Name",
@@ -124,7 +124,15 @@
   },
   "liability": {
     "title": "Liability",
-    "description": "Track money you owe to others.",
+    "description": "Track money you owe to others",
+    "totlaliability": "Total Liability",
+    "totlaliabilitys": "All liabilities combined.",
+    "paidliability": "Paid Liability",
+    "paidliabilitys": "Liabilities already paid.",
+    "partialliability": "Partial Liability",
+    "partialliabilitys": "Partially paid liabilities.",
+    "pendingliability": "Pending Liability",
+    "pendingliabilitys": "Liabilities not yet paid.",
     "addLiability": "Add Liability",
     "adding": "Adding...",
     "personName": "Person Name",
@@ -146,10 +154,11 @@
       "paid": "Paid",
       "due": "Due Date",
       "status": "Status",
+      "reason": "Reason",
       "actions": "Actions"
     },
-    "deleteConfirmTitle": "Delete this liability?",
-    "deleteConfirmDesc": "This action cannot be undone.",
+    "deleteConfirmTitle": "Are you sure you want to delete this liability?",
+    "deleteConfirmDesc": "This liability will be deleted permanently and cannot be recovered.",
     "yesDelete": "Yes, delete",
     "cancelDelete": "Cancel"
   },
