@@ -70,8 +70,6 @@ export default function LiabilityTable({ refreshKey }: { refreshKey: number }) {
     paid: "bg-green-500/10 text-green-600",
   };
 
-  console.log(liabilities);
-
   return (
     <>
       <div className="overflow-x-auto rounded-md border">
