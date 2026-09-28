@@ -70,8 +70,11 @@ export default function EditIncomeModal({
 
   useEffect(() => {
     if (open) {
+      // incomeService
+      //   .listCategories()
+      //   .then((res) => setCategories(res.data.categories));
       incomeService
-        .listCategories()
+        .listCategories(true)
         .then((res) => setCategories(res.data.categories));
     }
     if (open && income) {
@@ -87,7 +90,6 @@ export default function EditIncomeModal({
     }
   }, [open, income, reset]);
 
-  // Dialog বন্ধ হওয়ার (X, backdrop click, Cancel) সময় ফর্ম ক্লিন রিসেট করার জন্য
   function handleOpenChange(nextOpen: boolean) {
     if (!nextOpen) {
       reset();
@@ -174,6 +176,12 @@ export default function EditIncomeModal({
                     value = parts[0] + "." + parts.slice(1).join("");
                   }
                   e.target.value = value;
+                  // amountField.onChange({
+                  //   target: {
+                  //     name: "amount",
+                  //     value: value === "" ? undefined : Number(value),
+                  //   },
+                  // });
                   amountField.onChange(e);
                 }}
               />
