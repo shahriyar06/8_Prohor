@@ -5,10 +5,18 @@ export const liabilityService = {
     const response = await apiClient.post("/liability", data);
     return response.data;
   },
-  async listLiabilities(organizationId?: string) {
-    const response = await apiClient.get("/liability", {
-      params: organizationId ? { organizationId } : {},
-    });
+  async listLiabilities(params: {
+    search?: string;
+    date?: string;
+    status?: string;
+    page?: number;
+    limit?: number;
+  }) {
+    const response = await apiClient.get("/liability", { params });
+    return response.data;
+  },
+  async getSummary() {
+    const response = await apiClient.get("/liability/summary");
     return response.data;
   },
   async updateLiability(id: string, data: Record<string, unknown>) {
@@ -16,7 +24,9 @@ export const liabilityService = {
     return response.data;
   },
   async addPayment(id: string, amount: number) {
-    const response = await apiClient.post(`/liability/${id}/payment`, { amount });
+    const response = await apiClient.post(`/liability/${id}/payment`, {
+      amount,
+    });
     return response.data;
   },
   async deleteLiability(id: string) {
