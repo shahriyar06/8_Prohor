@@ -58,6 +58,7 @@ export const organizationService = {
     );
     return response.data;
   },
+
   async setRolePermissions(
     organizationId: string,
     roleId: string,
@@ -66,6 +67,26 @@ export const organizationService = {
     const response = await apiClient.put(
       `/organizations/${organizationId}/roles/${roleId}/permissions`,
       { permissionKeys },
+    );
+    return response.data;
+  },
+
+    async getMemberById(organizationId: string, memberId: string) {
+    const response = await apiClient.get(
+      `/organizations/${organizationId}/members/${memberId}`,
+    );
+    return response.data;
+  },
+
+  async updateMember(
+    organizationId: string,
+    memberId: string,
+    formData: FormData,
+  ) {
+    const response = await apiClient.patch(
+      `/organizations/${organizationId}/members/${memberId}`,
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" } },
     );
     return response.data;
   },

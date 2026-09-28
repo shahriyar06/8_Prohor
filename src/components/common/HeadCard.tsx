@@ -4,7 +4,7 @@ type HeadCardProps = {
   title: string;
   value: string | number;
   description: string;
-  className: string;
+  className?: string;
   icon: StaticImageData;
 };
 

@@ -1,4 +1,5 @@
 import VerifyOtpForm from "@/Features/VerifyOtp/VerifyOtpForm";
+import { Suspense } from "react";
 
 export default function VerifyOtpPage() {
   return (
@@ -8,7 +9,9 @@ export default function VerifyOtpPage() {
         <div className="text-center">
           <h1 className="text-2xl font-semibold text-primary">Verify OTP</h1>
         </div>
-        <VerifyOtpForm />
+        <Suspense fallback={<p className="text-center">Loading...</p>}>
+          <VerifyOtpForm />
+        </Suspense>
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ export default function Theme() {
     { value: "light", label: t("light"), icon: Sun },
     { value: "dark", label: t("dark"), icon: Moon },
     { value: "system", label: t("system"), icon: Monitor },
-  ];
+  ] as const;
 
   const currentOption =
     THEME_OPTIONS.find((opt) => opt.value === theme) ?? THEME_OPTIONS[2];
@@ -34,7 +34,9 @@ export default function Theme() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-lg">{t("title")}</h1>
-            <p className="text-muted-foreground text-xs md:text-sm">{t("description")}</p>
+            <p className="text-muted-foreground text-xs md:text-sm">
+              {t("description")}
+            </p>
           </div>
 
           <DropdownMenu>

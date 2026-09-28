@@ -15,7 +15,8 @@ export const memberFormSchema = z.object({
   department: z.string().optional(),
   joinDate: z.date({ message: "Join date is required" }),
   employmentType: z.enum(["full_time", "part_time", "volunteer", "intern"]),
-  memberStatus: z.enum(["active", "inactive", "suspended"]).default("active"),
+  // memberStatus: z.enum(["active", "inactive", "suspended"]).default("active"),
+    memberStatus: z.enum(["active", "inactive", "suspended"]),
 });
 
 export type MemberFormValues = z.infer<typeof memberFormSchema>;
