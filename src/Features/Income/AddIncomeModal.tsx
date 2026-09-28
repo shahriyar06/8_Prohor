@@ -86,13 +86,16 @@ export default function AddIncomeModal({
 
   useEffect(() => {
     if (open) {
+      // incomeService
+      //   .listCategories()
+      //   .then((res) => setCategories(res.data.categories));
+
       incomeService
-        .listCategories()
+        .listCategories(true)
         .then((res) => setCategories(res.data.categories));
     }
   }, [open]);
 
-  // Dialog বন্ধ হওয়ার (X, backdrop click, Cancel) সময় ফর্ম ক্লিন রিসেট করার জন্য
   function handleOpenChange(nextOpen: boolean) {
     if (!nextOpen) {
       reset();
@@ -176,6 +179,12 @@ export default function AddIncomeModal({
                     value = parts[0] + "." + parts.slice(1).join("");
                   }
                   e.target.value = value;
+                  // amountField.onChange({
+                  //   target: {
+                  //     name: "amount",
+                  //     value: value === "" ? undefined : Number(value),
+                  //   },
+                  // });
                   amountField.onChange(e);
                 }}
               />
@@ -227,13 +236,13 @@ export default function AddIncomeModal({
 
             <div className="flex flex-col gap-1.5">
               <Label>{t("source")}</Label>
-              <Input {...register("source")} placeholder="Cash/Bank"/>
+              <Input {...register("source")} placeholder="Cash/Bank" />
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5">
             <Label>{t("note")}</Label>
-            <Textarea {...register("note")} placeholder="Note"/>
+            <Textarea {...register("note")} placeholder="Note" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">

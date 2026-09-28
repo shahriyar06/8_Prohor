@@ -2,6 +2,7 @@ export interface IncomeCategory {
   id: string;
   name: string;
   isDefault: boolean;
+  isActive: boolean;
 }
 
 export interface Income {
