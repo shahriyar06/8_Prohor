@@ -71,7 +71,7 @@ export default function PermissionDetails() {
       <hr className="mb-4 mt-2" />
 
       <div className="max-w-sm mb-6">
-        <Select value={selectedRoleId} onValueChange={setSelectedRoleId}>
+        <Select value={selectedRoleId} onValueChange={(value) => setSelectedRoleId(value ?? "")}>
           <SelectTrigger className="w-full"><SelectValue placeholder={t("selectRole")} /></SelectTrigger>
           <SelectContent>
             {roles.map((role) => (

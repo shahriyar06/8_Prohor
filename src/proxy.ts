@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server";
 const protectedRoutes = ["/dashboard"];
 const authRoutes = ["/login", "/register"];
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   // const token = req.cookies.get("refreshToken")?.value;
   const token = req.cookies.get("isLoggedIn")?.value;
   const path = req.nextUrl.pathname;
