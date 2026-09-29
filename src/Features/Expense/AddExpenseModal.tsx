@@ -76,7 +76,11 @@ export default function AddExpenseModal({
   });
 
   const isRecurring = watch("isRecurring");
-  const amountField = register("amount");
+
+  const amountField = register("amount", {
+    setValueAs: (v) =>
+      v === "" || v === undefined || v === null ? undefined : Number(v),
+  });
 
   useEffect(() => {
     if (open) {
@@ -98,8 +102,7 @@ export default function AddExpenseModal({
     try {
       const result = await expenseService.createExpense(data);
       toast.success(result.message || "Expense added");
-      reset();
-      onOpenChange(false);
+      handleOpenChange(false);
       onSuccess?.();
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
@@ -171,7 +174,6 @@ export default function AddExpenseModal({
                 placeholder="1000"
                 {...amountField}
                 onKeyDown={(e) => {
-                  // minus, plus, e/E (scientific notation) — সব ব্লক
                   if (["-", "+", "e", "E"].includes(e.key)) {
                     e.preventDefault();
                   }
@@ -184,7 +186,7 @@ export default function AddExpenseModal({
                     value = parts[0] + "." + parts.slice(1).join("");
                   }
                   e.target.value = value;
-                  amountField.onChange(e);
+                  amountField.onChange(e); 
                 }}
               />
               {errors.amount && (
@@ -299,9 +301,11 @@ export default function AddExpenseModal({
                         </SelectValue>
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="daily">Daily</SelectItem>
-                        <SelectItem value="weekly">Weekly</SelectItem>
-                        <SelectItem value="monthly">Monthly</SelectItem>
+                        {recurrenceOptions.map((opt) => (
+                          <SelectItem key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   )}

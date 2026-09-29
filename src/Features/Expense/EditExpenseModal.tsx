@@ -73,7 +73,10 @@ export default function EditExpenseModal({
     resolver: zodResolver(expenseFormSchema),
   });
 
-  const amountField = register("amount");
+  const amountField = register("amount", {
+    setValueAs: (v) =>
+      v === "" || v === undefined || v === null ? undefined : Number(v),
+  });
 
   useEffect(() => {
     if (open) {
@@ -94,7 +97,6 @@ export default function EditExpenseModal({
     }
   }, [open, expense, reset]);
 
-  // Dialog বন্ধ হওয়ার (X, backdrop click, Cancel) সময় ফর্ম clean রিসেট করার জন্য
   function handleOpenChange(nextOpen: boolean) {
     if (!nextOpen) {
       reset();
