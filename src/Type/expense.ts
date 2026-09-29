@@ -2,6 +2,7 @@ export interface ExpenseCategory {
   id: string;
   name: string;
   isDefault: boolean;
+  isActive: boolean;
 }
 
 export interface Expense {
