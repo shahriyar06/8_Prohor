@@ -81,17 +81,17 @@ export default function AddIncomeModal({
     },
   });
 
-  const amountField = register("amount");
+  const amountField = register("amount", {
+    setValueAs: (v) =>
+      v === "" || v === undefined || v === null ? undefined : Number(v),
+  });
+
   const isRecurring = watch("isRecurring");
 
   useEffect(() => {
     if (open) {
-      // incomeService
-      //   .listCategories()
-      //   .then((res) => setCategories(res.data.categories));
-
       incomeService
-        .listCategories(true)
+        .listCategories({ activeOnly: true })
         .then((res) => setCategories(res.data.categories));
     }
   }, [open]);
@@ -179,12 +179,6 @@ export default function AddIncomeModal({
                     value = parts[0] + "." + parts.slice(1).join("");
                   }
                   e.target.value = value;
-                  // amountField.onChange({
-                  //   target: {
-                  //     name: "amount",
-                  //     value: value === "" ? undefined : Number(value),
-                  //   },
-                  // });
                   amountField.onChange(e);
                 }}
               />

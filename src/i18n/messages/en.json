@@ -55,6 +55,7 @@
     "of": "of",
     "previous": "Previous",
     "next": "Next",
+    "noResults": "No income found",
     "table": {
       "date": "Date",
       "category": "Category",
@@ -79,6 +80,9 @@
     "default": "Default",
     "active": "Active",
     "inactive": "Inactive",
+    "searchPlaceholder": "Search category...",
+    "allStatus": "All Status",
+    "noResults": "No categories found",
     "activeToggle": "Enable or disable this option",
     "table": { "name": "Name", "actions": "Actions" },
     "deleteConfirmTitle": "Are you sure you want to delete this category?",
