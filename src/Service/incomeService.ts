@@ -6,27 +6,20 @@ export const incomeService = {
     return response.data;
   },
 
-  // async listCategories(organizationId?: string) {
-  //   const response = await apiClient.get("/income/categories", {
-  //     params: organizationId ? { organizationId } : {},
-  //   });
-  //   return response.data;
-  // },
-
-  async listCategories(activeOnly = false) {
+  async listCategories(params?: {
+    activeOnly?: boolean;
+    search?: string;
+    status?: string;
+  }) {
     const response = await apiClient.get("/income/categories", {
-      params: activeOnly ? { active: "true" } : {},
+      params: {
+        ...(params?.activeOnly && { active: "true" }),
+        ...(params?.search && { search: params.search }),
+        ...(params?.status && { status: params.status }),
+      },
     });
     return response.data;
   },
-
-  // async updateCategory(categoryId: string, data: { name: string }) {
-  //   const response = await apiClient.patch(
-  //     `/income/categories/${categoryId}`,
-  //     data,
-  //   );
-  //   return response.data;
-  // },
 
   async updateCategory(
     id: string,
@@ -45,13 +38,6 @@ export const incomeService = {
     const response = await apiClient.post("/income", data);
     return response.data;
   },
-
-  // async listIncomes(organizationId?: string) {
-  //   const response = await apiClient.get("/income", {
-  //     params: organizationId ? { organizationId } : {},
-  //   });
-  //   return response.data;
-  // },
 
   async listIncomes(params: {
     search?: string;

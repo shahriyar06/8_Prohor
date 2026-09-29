@@ -66,15 +66,15 @@ export default function EditIncomeModal({
     resolver: zodResolver(incomeFormSchema),
   });
 
-  const amountField = register("amount");
+  const amountField = register("amount", {
+    setValueAs: (v) =>
+      v === "" || v === undefined || v === null ? undefined : Number(v),
+  });
 
   useEffect(() => {
     if (open) {
-      // incomeService
-      //   .listCategories()
-      //   .then((res) => setCategories(res.data.categories));
       incomeService
-        .listCategories(true)
+        .listCategories({ activeOnly: true })
         .then((res) => setCategories(res.data.categories));
     }
     if (open && income) {
@@ -176,12 +176,6 @@ export default function EditIncomeModal({
                     value = parts[0] + "." + parts.slice(1).join("");
                   }
                   e.target.value = value;
-                  // amountField.onChange({
-                  //   target: {
-                  //     name: "amount",
-                  //     value: value === "" ? undefined : Number(value),
-                  //   },
-                  // });
                   amountField.onChange(e);
                 }}
               />
