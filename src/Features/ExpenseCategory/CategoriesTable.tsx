@@ -137,6 +137,12 @@ export default function CategoriesTable({
     }
   }
 
+  const statusOptions = [
+    { value: "all", labelKey: "allStatus" },
+    { value: "active", labelKey: "active" },
+    { value: "inactive", labelKey: "inactive" },
+  ] as const;
+
   return (
     <>
       {/* Filter */}
@@ -152,12 +158,19 @@ export default function CategoriesTable({
         </div>
         <Select value={status} onValueChange={(v) => setStatus(v ?? "all")}>
           <SelectTrigger className="md:w-44">
-            <SelectValue />
+            <SelectValue>
+              {t(
+                statusOptions.find((opt) => opt.value === status)?.labelKey ??
+                  "allStatus",
+              )}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t("allStatus")}</SelectItem>
-            <SelectItem value="active">{t("active")}</SelectItem>
-            <SelectItem value="inactive">{t("inactive")}</SelectItem>
+            {statusOptions.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {t(opt.labelKey)}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

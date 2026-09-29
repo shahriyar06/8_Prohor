@@ -5,7 +5,6 @@ export const incomeFormSchema = z.object({
   amount: z
     .number({ message: "Amount is required" })
     .positive("Amount must be greater than 0"),
-  // amount: z.coerce.number().positive("Amount must be greater than 0"),
   source: z.string().optional(),
   note: z.string().optional(),
   date: z.date({ message: "Date is required" }),

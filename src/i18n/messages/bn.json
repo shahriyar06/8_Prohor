@@ -55,6 +55,7 @@
     "of": "এর",
     "previous": "আগের",
     "next": "পরের",
+    "noResults": "কোনো আয় পাওয়া যায়নি",
     "table": {
       "date": "তারিখ",
       "category": "ক্যাটাগরি",
@@ -79,6 +80,9 @@
     "default": "ডিফল্ট",
     "active": "সক্রিয়",
     "inactive": "নিষ্ক্রিয়",
+    "searchPlaceholder": "ক্যাটাগরি খুঁজুন...",
+    "allStatus": "সব স্ট্যাটাস",
+    "noResults": "কোনো ক্যাটাগরি পাওয়া যায়নি",
     "activeToggle": "এই অপশনটি চালু বা বন্ধ করুন",
     "table": { "name": "নাম", "actions": "অ্যাকশন" },
     "deleteConfirmTitle": "আপনি কি নিশ্চিত যে এই ক্যাটাগরিটি ডিলিট করতে চান?",

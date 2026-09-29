@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Search, Trash2 } from "lucide-react";
 
 import {
   Table,
@@ -31,6 +31,13 @@ import {
 import { IncomeCategory } from "@/Type/income";
 import { incomeService } from "@/Service/incomeService";
 import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export interface CategoriesTableRef {
   refetch: () => void;
@@ -49,12 +56,24 @@ export default function CategoriesTable({
   const [isDeleting, setIsDeleting] = useState(false);
   const [togglingId, setTogglingId] = useState<string | null>(null);
 
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [status, setStatus] = useState("all");
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search), 400);
+    return () => clearTimeout(timer);
+  }, [search]);
+
   useEffect(() => {
     fetchCategories();
-  }, [refreshKey]);
+  }, [refreshKey, debouncedSearch, status]);
 
   async function fetchCategories() {
-    const res = await incomeService.listCategories();
+    const res = await incomeService.listCategories({
+      search: debouncedSearch || undefined,
+      status,
+    });
     setCategories(res.data.categories);
   }
 
@@ -118,8 +137,46 @@ export default function CategoriesTable({
     }
   }
 
+  const statusOptions = [
+    { value: "all", labelKey: "allStatus" },
+    { value: "active", labelKey: "active" },
+    { value: "inactive", labelKey: "inactive" },
+  ] as const;
+
   return (
     <>
+      {/* Filter */}
+      <div className="flex flex-col md:flex-row gap-3 mb-4">
+        <div className="relative md:max-w-xs w-full">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+          <Input
+            placeholder={t("searchPlaceholder")}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+        
+        <Select value={status} onValueChange={(v) => setStatus(v ?? "all")}>
+          <SelectTrigger className="md:w-44">
+            <SelectValue>
+              {t(
+                statusOptions.find((opt) => opt.value === status)?.labelKey ??
+                  "allStatus",
+              )}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {statusOptions.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {t(opt.labelKey)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Table */}
       <div className="overflow-x-auto rounded-md border">
         <Table>
           <TableHeader>
@@ -199,6 +256,11 @@ export default function CategoriesTable({
             ))}
           </TableBody>
         </Table>
+        {categories.length === 0 && (
+          <p className="text-center text-sm text-muted-foreground py-6">
+            {t("noResults")}
+          </p>
+        )}
       </div>
 
       <AlertDialog
