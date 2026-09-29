@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { format } from "date-fns";
-import { Trash2, CircleDollarSign, CalendarIcon, X } from "lucide-react";
+import { Trash2, CircleDollarSign, CalendarIcon, X, Search } from "lucide-react";
 
 import {
   Table,
@@ -137,12 +137,15 @@ export default function LiabilityTable({
     <>
       {/* Filters */}
       <div className="flex flex-col md:flex-row gap-3 mb-4">
-        <Input
-          placeholder={t("searchPlaceholder")}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="md:max-w-xs"
-        />
+        <div className="relative md:max-w-xs w-full">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+          <Input
+            placeholder={t("searchPlaceholder")}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="pl-9"
+          />
+        </div>
 
         <Popover>
           <PopoverTrigger
